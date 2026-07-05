@@ -154,8 +154,6 @@ jobs:
 
     - name: Building recovery
       run: |
-        - name: Setup TWRP product
-  run: |
     # 删除旧的 lineage_snowcastle.mk（如果存在）
     rm -f device/apple/snowcastle/lineage_snowcastle.mk
 
