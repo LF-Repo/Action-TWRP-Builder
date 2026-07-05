@@ -155,10 +155,10 @@ jobs:
     - name: Building recovery
       run: |
     # 删除旧的 lineage_snowcastle.mk（如果存在）
-    rm -f device/apple/snowcastle/lineage_snowcastle.mk
+      rm -f device/apple/snowcastle/lineage_snowcastle.mk
 
     # 创建 TWRP 产品定义
-    cat > device/apple/snowcastle/twrp_snowcastle.mk <<'EOF'
+      cat > device/apple/snowcastle/twrp_snowcastle.mk <<'EOF'
 # TWRP product for snowcastle
 PRODUCT_NAME := twrp_snowcastle
 PRODUCT_DEVICE := snowcastle
@@ -177,12 +177,12 @@ TARGET_RECOVERY_FSTAB := device/apple/snowcastle/rootdir/etc/fstab.apple
 EOF
 
     # 更新 AndroidProducts.mk
-    cat > device/apple/snowcastle/AndroidProducts.mk <<'EOF'
+      cat > device/apple/snowcastle/AndroidProducts.mk <<'EOF'
 PRODUCT_MAKEFILES := $(LOCAL_DIR)/twrp_snowcastle.mk
 EOF
 
     # 再次修补 device.mk，防止任何残留的 mainline/common 引用
-    sed -i '/device\/mainline\/common/d' device/apple/snowcastle/device.mk
+      sed -i '/device\/mainline\/common/d' device/apple/snowcastle/device.mk
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng && make clean && make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
